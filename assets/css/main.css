@@ -1,0 +1,21 @@
+.loader {
+  display: none;
+}
+.btn-delete {
+  cursor: pointer;
+}
+.mg-top-50 {
+  margin-top: 50px;
+}
+.mg-top-75 {
+  margin-top: 75px;
+}
+footer {
+  background-color: #333;
+  padding: 40px;
+}
+
+footer p,
+footer a {
+  color: #888;
+}

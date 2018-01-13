@@ -1,71 +1,61 @@
 <html>
 	<head>
-		<title>Fizzmod Test</title>
+		<title>Ejercicio Fizzmod</title>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Main css -->
+		<link rel="stylesheet" href="/assets/css/main.css">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+		<!-- Font Awesoma -->
+		<link rel="stylesheet" href="assets/css/font-awesome.css">
 	</head>
 
 	<body>
-		<h1>Fizzmod Test</h1>
-		<pre>
-	/**
-	*
-	*	Armar un script que cumpla los siguientes requerimientos:
-	*
-	*	Se dispone de un JSON en la ubicación pub/products.json con informacion de productos.
-	*	Se debe obtener este JSON desde PHP en la clase Product, procesarlo e insertar sus productos dentro de la tabla MySQL "products".
-	*
-	*	Al clickear el botón de <strong>CONSULTAR</strong>, se debe enviar el ID del producto al servidor vía AJAX (validar el ID como obligatorio y numérico).
-	*	Se debe incluir un mensaje de "Cargando..." mientras la request está en proceso.
-	*
-	*	Al clickear el botón de <strong>VER TODOS</strong>, debe traer el listado completo de productos.
-	*
-	*	El servidor debe devolver un listado de productos como JSON.
-	*
-	*	Con los resultados de las consulta, debe armar una tabla dentro de <strong>#result</strong> con todos los datos de los productos (<i>no imprimir el status</i>),
-	*	agregando una columna al final con un botón para eliminar el producto.
-	*
-	*	<strong>Estos listados deben listar únicamente los productos con status = 1.</strong>
-	*
-	*
-	*
-	*	Al hacer click en el botón de eliminar, debe hacer otro llamado por AJAX al server, el cual seteará la columna "status" del producto a <strong>-1</strong>
-	*	y devolverá un mensaje de éxito/error.
-	*	Se debe eliminar la fila de la tabla de resultados para el producto eliminado.
-	*
-	*	<strong>IMPORTANTE:</strong> Usar OOP. Crear la clase Product, Database y/o las que crea necesarias.
-	*/
+		<div class="text-center mg-top-50">
+			<img src="http://fizzmod.com/images/fizzmod_web_design.png" alt="Logo">
+		</div>
 
-		</pre>
-
-		<div class="container">
-
+		<div class="container mg-top-75">
 			<label for="productId">Id de producto</label>
-			<input type="text" name="productId" id="productId" />
-			<input type="button" class="btn consult" value="CONSULTAR" />
-
-			<br /><br />
-
-			<input type="button" class="btn see-all" value="VER TODOS" />
-
+			<input type="number" name="productId" id="productId" />
+			<input id="search-product-btn" type="button" class="btn btn-primary consult" value="CONSULTAR" />
+			<input id="see-all-products" type="button" class="btn btn-primary see-all" value="VER TODOS" />
+			<input type="button" class="btn btn-primary see-all pull-right" onclick="loadProducts()" value="CARGAR PRODUCTOS EN DB" />
+			<br>
+			<label class="loader" for="">Cargando...</label>
+			<div id="result" class="mg-top-50">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Precio</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
-		<div id="result">
-
-		</div>
+		<footer class="text-center">
+			<p>Github:
+				<a href="https://github.com/juanmusto/fizzmod">Repo</a>.
+			</p>
+			<p>Contacto:
+				<a href="mailto:jmmusto4@gmail.com">jmmusto4@gmail.com</a>.
+			</p>
+		</footer>
 
 	</body>
+	<!-- CDN jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<!-- Main Js -->
+	<script src="/assets/js/main.js"></script>
+
 </html>
-
-<?php
-	require_once "includes/DB.php";
-	require_once "includes/Product.php";
-
-	//Route of json
-	$path_to_file = "./pub/products.json";
-
-	//New Object Product
-	$foo = new Product();
-
-	//insert products
-	$foo->insertProducts(json_decode($foo->readFile($path_to_file)));
-?>
